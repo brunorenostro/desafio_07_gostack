@@ -40,12 +40,11 @@ const Dashboard: React.FC = () => {
       api.get('/transactions').then(response => {
         setBalance(response.data.balance);
         setTransactions(response.data.transactions);
-        console.log(balance);
       });
     }
 
     loadTransactions();
-  }, [transactions]);
+  }, []);
 
   return (
     <>
@@ -88,7 +87,7 @@ const Dashboard: React.FC = () => {
                   <th>Título</th>
                   <th>Preço</th>
                   <th>Categoria</th>
-                  <th>Tipo</th>
+
                   <th>Data</th>
                 </tr>
               </thead>
@@ -101,13 +100,17 @@ const Dashboard: React.FC = () => {
                     {info.type === 'income' ? (
                       <td className="income">{formatValue(info.value)}</td>
                     ) : (
-                      <td className="outcome">-{formatValue(info.value)}</td>
+                      <td className="outcome">
+                        -
+<span>&nbsp;</span>
+                        {formatValue(info.value)}
+                      </td>
                     )}
 
                     <td>
                       {info.category ? info.category.title : 'sem categoria'}
                     </td>
-                    <td>{info.type}</td>
+
                     <td>{formatDate(info.created_at)}</td>
                   </tr>
                 ))}
